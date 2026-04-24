@@ -1,7 +1,7 @@
 {
   "appId": "com.moderncalculator.app",
   "appName": "Modern Calculator",
-  "webDir": ".",
+ "webDir": "www-calculator"
   "server": {
     "androidScheme": "https"
   }
