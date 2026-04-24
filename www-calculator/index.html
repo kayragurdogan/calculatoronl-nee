@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Modern Glass Calculator</title>
+    <!-- Mobile optimization tags -->
+    <meta name="theme-color" content="#0d0f1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <!-- Hover.css kütüphanesi CDN üzerinden eklendi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css" />
+</head>
+<body>
+    <div class="background-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    <div class="calculator-container">
+        <div class="calculator">
+            <div class="display">
+                <div class="previous-operand" id="previous-operand"></div>
+                <div class="current-operand" id="current-operand">0</div>
+            </div>
+            <div class="buttons">
+                <button class="btn fn hvr-glow" id="clear">AC</button>
+                <button class="btn fn hvr-glow" id="delete">⌫</button>
+                <button class="btn operator hvr-glow" id="divide">÷</button>
+                
+                <button class="btn number hvr-glow" data-number>7</button>
+                <button class="btn number hvr-glow" data-number>8</button>
+                <button class="btn number hvr-glow" data-number>9</button>
+                <button class="btn operator hvr-glow" id="multiply">×</button>
+                
+                <button class="btn number hvr-glow" data-number>4</button>
+                <button class="btn number hvr-glow" data-number>5</button>
+                <button class="btn number hvr-glow" data-number>6</button>
+                <button class="btn operator hvr-glow" id="subtract">−</button>
+                
+                <button class="btn number hvr-glow" data-number>1</button>
+                <button class="btn number hvr-glow" data-number>2</button>
+                <button class="btn number hvr-glow" data-number>3</button>
+                <button class="btn operator hvr-glow" id="add">+</button>
+                
+                <button class="btn zero number hvr-glow" data-number>0</button>
+                <button class="btn decimal hvr-glow" id="decimal">.</button>
+                <button class="btn operator equals hvr-glow" id="equals">=</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker failed', err));
+            });
+        }
+    </script>
+</body>
+</html>

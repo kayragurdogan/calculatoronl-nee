@@ -1,0 +1,295 @@
+:root {
+    --bg-color: #0d0f1a;
+    --calc-bg: rgba(255, 255, 255, 0.03);
+    --calc-border-top: rgba(255, 255, 255, 0.15);
+    --calc-border-left: rgba(255, 255, 255, 0.15);
+    --calc-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --btn-bg: rgba(255, 255, 255, 0.05);
+    --btn-hover: rgba(255, 255, 255, 0.15);
+    --btn-active: rgba(255, 255, 255, 0.25);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.5);
+    --fn-color: #ff9f43;
+    --operator-color: #0abde3;
+    --equals-bg: linear-gradient(135deg, #0abde3, #2e86de);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+}
+
+/* Floating Orbs Background */
+.background-orbs {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: float 10s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 300px;
+    height: 300px;
+    background: #ff9f43;
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: #0abde3;
+    bottom: 10%;
+    right: 15%;
+    animation-delay: -3s;
+}
+
+.orb-3 {
+    width: 250px;
+    height: 250px;
+    background: #ee5253;
+    top: 40%;
+    left: 60%;
+    animation-delay: -6s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -50px) scale(1.1); }
+}
+
+/* Calculator Container */
+.calculator-container {
+    z-index: 1;
+    position: relative;
+}
+
+.calculator {
+    background: var(--calc-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: 30px;
+    border-top: 1px solid var(--calc-border-top);
+    border-left: 1px solid var(--calc-border-left);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px 20px;
+    width: 92%;
+    max-width: 380px;
+    box-shadow: var(--calc-shadow);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.calculator:hover {
+    transform: translateY(-5px);
+}
+
+/* Display */
+.display {
+    margin-bottom: 30px;
+    text-align: right;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 10px;
+}
+
+.previous-operand {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    font-weight: 300;
+    min-height: 28px;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+}
+
+.current-operand {
+    color: var(--text-primary);
+    font-size: 3.5rem;
+    font-weight: 200;
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 1.1;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    grid-template-areas: 
+        "clear clear del div"
+        "n7 n8 n9 mult"
+        "n4 n5 n6 sub"
+        "n1 n2 n3 add"
+        "n0 n0 dot eq";
+}
+
+#clear { grid-area: clear; }
+#delete { grid-area: del; }
+#divide { grid-area: div; }
+#multiply { grid-area: mult; }
+#subtract { grid-area: sub; }
+#add { grid-area: add; }
+#decimal { grid-area: dot; }
+#equals { grid-area: eq; }
+
+.number[data-number="7"] { grid-area: n7; }
+.number[data-number="8"] { grid-area: n8; }
+.number[data-number="9"] { grid-area: n9; }
+.number[data-number="4"] { grid-area: n4; }
+.number[data-number="5"] { grid-area: n5; }
+.number[data-number="6"] { grid-area: n6; }
+.number[data-number="1"] { grid-area: n1; }
+.number[data-number="2"] { grid-area: n2; }
+.number[data-number="3"] { grid-area: n3; }
+.zero { grid-area: n0; }
+
+
+.btn {
+    border: none;
+    outline: none;
+    background: var(--btn-bg);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 300;
+    height: 65px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn.zero {
+    border-radius: 35px;
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 28px;
+}
+
+.btn.fn#clear {
+    width: 100%;
+    border-radius: 35px;
+}
+
+.btn:hover {
+    background: var(--btn-hover);
+    transform: scale(1.05);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    background: var(--btn-active);
+    transform: scale(0.95);
+}
+
+.fn {
+    color: var(--fn-color);
+    font-weight: 400;
+}
+
+.operator {
+    color: var(--operator-color);
+    font-weight: 400;
+    font-size: 1.8rem;
+}
+
+.equals {
+    background: var(--equals-bg);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(10, 189, 227, 0.3);
+    border: none;
+    font-size: 2rem;
+}
+
+.equals:hover {
+    background: var(--equals-bg);
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(10, 189, 227, 0.5);
+}
+
+/* Animations */
+.current-operand.update {
+    animation: flash 0.15s ease-out;
+}
+
+@keyframes flash {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.02); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+    .calculator {
+        padding: 25px 15px;
+        border-radius: 20px;
+    }
+
+    .display {
+        margin-bottom: 20px;
+        min-height: 100px;
+    }
+
+    .current-operand {
+        font-size: 3rem;
+    }
+
+    .buttons {
+        gap: 12px;
+    }
+
+    .btn {
+        height: 60px;
+        font-size: 1.3rem;
+    }
+
+    .btn.zero, .btn.fn#clear {
+        border-radius: 30px;
+    }
+    
+    /* Disable some hover effects on touch to prevent sticky states */
+    .calculator:hover {
+        transform: none;
+    }
+}
+
+/* Landscape mode adjustment */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        overflow-y: auto;
+        padding: 20px 0;
+    }
+    .calculator {
+        margin: auto;
+    }
+}
