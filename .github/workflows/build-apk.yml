@@ -19,13 +19,10 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: |
-          cd www-calculator
-          npm install
+        run: npm install
 
       - name: Initialize Capacitor Android
         run: |
-          cd www-calculator
           if [ ! -d "android" ]; then
             npx cap add android
           fi
@@ -42,7 +39,7 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          cd www-calculator/android
+          cd android
           chmod +x gradlew
           ./gradlew assembleDebug
 
@@ -50,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk
-          path: www-calculator/android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
